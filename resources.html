@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniCloudlib - Resources</title>
+    <link rel="stylesheet" href="resources.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><img src="logo.png" alt="logo" /></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="upload.html">Upload</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Resources</h1>
+        <form class="filter-form">
+            <input type="text" placeholder="Search resources...">
+            <select id="school" required>
+                <option value="">Filter by School/University</option>
+                <!-- Add options for schools/universities -->
+            </select>
+            <select id="department" required>
+                <option value="">Filter by Department</option>
+                <!-- Add options for departments -->
+            </select>
+            <select id="course" required>
+                <option value="">Filter by Course</option>
+                <!-- Add options for courses -->
+            </select>
+            <select id="level" required>
+                <option value="">Filter by Level</option>
+                <!-- Add options for levels -->
+            </select>
+            <select id="position" required>
+                <option value="">Filter by Position</option>
+                <option value="student">Student</option>
+                <option value="lecturer">Lecturer</option>
+            </select>
+        </form>
+        <div class="resource-grid">
+            <div class="resource-item">
+                <h2>Resource Title</h2>
+                <p>Brief description of the resource.</p>
+                <p>Uploaded by: <em>Uploader's Name</em></p>
+                <a href="#" class="btn">Download</a>
+            </div>
+            <!-- Add more resource items as needed -->
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 UniCloudlib. All rights reserved.</p>
+        <ul>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+        </ul>
+    </footer>
+</body>
+</html>
