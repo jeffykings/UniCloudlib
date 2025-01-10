@@ -4,9 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Profile</title>
+   <img src="Unicloudlib/logo.png" alt="UniCloudlib Logo" class="logo-image">
   <style>
     /* General Styles */
-    body {
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px; /* Space between the logo and text */
+    }
+    .logo-image {
+        height: 40px; /* Adjust the height of the logo */
+        width: auto;  /* Maintain the aspect ratio */
+    }
+     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
@@ -90,7 +100,7 @@
   <!-- Navigation Bar -->
   <div class="navbar">
     <div class="logo">
-      <span>UniCloudlib</span>
+    <span>UniCloudlib</span>
     </div>
     <div class="menu">
       <a href="#home">Home</a>
