@@ -22,7 +22,13 @@
       align-items: center;
       padding: 10px 20px;
     }
-    
+    header nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+}  
     header .logo img {
     max-width: 150px; /* Adjust the maximum width as needed */
     height: auto; /* Maintain the aspect ratio */
@@ -155,7 +161,9 @@
 <body>
 
   <!-- Navigation Bar -->
-  <div class="navbar">
+  <header>
+	  <nav>
+	  <div class="navbar">
 	  <div class="logo"><img src="logo.png" alt="Logo">
 	 </div>
     <div class="menu">
@@ -164,6 +172,8 @@
       <a href="login.html">Login</a>
     </div>
   </div>
+  </nav>
+  </header>
 
   <!-- Hero Section -->
   <div class="hero">
