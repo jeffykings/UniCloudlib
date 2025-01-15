@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,20 +23,57 @@
       align-items: center;
       padding: 10px 20px;
     }
+
+    header {
+      background-color: #343a40;
+      color: #fff;
+      padding: 1rem 0;
+    }
+
     header nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 90%;
-    margin: 0 auto;
-}  
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 90%;
+      margin: 0 auto;
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    header ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+
+    header ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    header ul li a:hover {
+      background-color: #495057;
+      border-radius: 5px;
+    }
+
+
     header .logo img {
-    max-width: 150px; /* Adjust the maximum width as needed */
-    height: auto; /* Maintain the aspect ratio */
-    object-fit: contain; /* Ensures the image is not stretched */
-    border-radius: 10px; /* Optional: Adds rounded corners for a more refined look */
-    padding: 5px; /* Optional: Adds a bit of space around the logo */
-}
+      max-width: 150px;
+      /* Adjust the maximum width as needed */
+      height: auto;
+      /* Maintain the aspect ratio */
+      object-fit: contain;
+      /* Ensures the image is not stretched */
+      border-radius: 10px;
+      /* Optional: Adds rounded corners for a more refined look */
+      padding: 5px;
+      /* Optional: Adds a bit of space around the logo */
+    }
 
     .navbar .logo {
       display: flex;
@@ -158,17 +196,20 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Navigation Bar -->
   <header>
-	  <nav>
-	<div class="logo"><img src="logo.png" alt="Logo">
-	 </div>
-	<a href="home.html">Home</a>
-	 <a href="upload.html">Upload</a>
-	 <a href="login.html">Login</a>
-	  </nav>
+    <nav>
+      <div class="logo"><img src="logo.png" alt="Logo">
+      </div>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="upload.html">Upload</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
   </header>
 
   <!-- Hero Section -->
@@ -199,6 +240,5 @@
   </div>
 
 </body>
+
 </html>
-
-
