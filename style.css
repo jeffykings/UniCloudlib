@@ -1,0 +1,145 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Body */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 400px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.header {
+    background-color: #2e2e2e;
+    color: #ff7300;
+    text-align: center;
+    padding: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Login Box */
+.login-box {
+    padding: 20px;
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Form Inputs */
+form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Login Button */
+.login-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.login-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Forgot Password */
+.forgot-password {
+    display: block;
+    color: #007bff;
+    text-decoration: none;
+    margin-bottom: 15px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+/* Social Buttons */
+.social-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.social-buttons button {
+    width: 32%;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.google-btn {
+    background-color: #db4437;
+}
+
+.facebook-btn {
+    background-color: #4267B2;
+}
+
+.linkedin-btn {
+    background-color: #2867B2;
+}
+
+.google-btn:hover {
+    background-color: #c33d29;
+}
+
+.facebook-btn:hover {
+    background-color: #375490;
+}
+
+.linkedin-btn:hover {
+    background-color: #1f4e7a;
+}
+
+/* Signup Text */
+.signup-text {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+}
+
+.signup-text a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.signup-text a:hover {
+    text-decoration: underline;
+}
+
