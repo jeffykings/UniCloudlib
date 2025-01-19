@@ -1,6 +1,7 @@
 // server.js
 
 const express = require('express');
+const multer = require('multer');
 require('dotenv').config();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
