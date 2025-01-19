@@ -10,6 +10,7 @@ const authRoutes = require('./routes/auth'); // Import the auth routes
 const jwtSecret = process.env.JWT_SECRET;
 const path = require('path');
 const fs = require('fs');
+const fileMetadata = []; // Replace with database logic later
 
 const app = express();
 // Use routes
@@ -56,6 +57,7 @@ app.get('/files/:filename', (req, res) => {
       return res.status(404).json({ message: 'File not found' });
     }
     res.sendFile(filePath);
+     res.json(fileMetadata); // Replace this with MongoDB queries in the future
   });
 });
 // Start the server
