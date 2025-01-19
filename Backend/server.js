@@ -16,7 +16,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: 'https://your-frontend-domain.com' })); // Restrict CORS
+app.use(cors({ origin: 'https://unicloudlib.vercel.app' })); // Restrict CORS
 app.use(helmet()); // Add security headers
 
 // MongoDB Connection
