@@ -27,13 +27,14 @@ document.addEventListener('DOMContentLoaded', () => {
     formData.append('file', fileInput.files[0]);
 
     try {
-      const response = await fetch('https://your-vercel-backend-url/upload', {
+      const response = await fetch('https://uni-cloudlib.vercel.app/upload', {
         method: 'POST',
         body: formData,
       });
       const data = await response.json();
       if (response.ok) {
         alert(data.message || 'File uploaded successfully!');
+        uploadForm.reset();
       } else {
         alert(data.message || 'Upload failed.');
       }
