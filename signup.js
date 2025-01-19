@@ -23,7 +23,16 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         body: JSON.stringify({ name, email, password, position }),
       });
-      const data = await response.json();
+
+      let data;
+      const contentType = response.headers.get('Content-Type') || '';
+      if (contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        throw new Error(`Unexpected response format: ${text}`);
+      }
+
       if (response.ok) {
         alert('Signup successful! You can now log in.');
         window.location.href = 'login.html';
