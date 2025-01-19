@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const password = loginForm.querySelector('input[type="password"]').value;
 
     try {
-      const response = await fetch('https://uni-cloudlib-6lngnkkj8-jeffykings-projects.vercel.app/', {
+      const response = await fetch('https://uni-cloudlib.vercel.app/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await response.json();
       if (response.ok) {
         alert('Login successful!');
-        // Store the token for future use (optional)
         localStorage.setItem('authToken', data.token);
+        window.location.href = 'home.html';
       } else {
         alert(data.message || 'Login failed.');
       }
