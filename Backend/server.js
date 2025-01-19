@@ -8,6 +8,8 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const authRoutes = require('./routes/auth'); // Import the auth routes
 const jwtSecret = process.env.JWT_SECRET;
+const path = require('path');
+const fs = require('fs');
 
 const app = express();
 // Use routes
@@ -46,14 +48,21 @@ mongoose.connect('mongodb+srv://Alx:unicloudlib@cluster0.f3j4s.mongodb.net/?retr
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
-// Test route
-app.get('/', (req, res) => {
-  res.send('UniCloudlib backend is running');
+// Route to serve uploaded files
+app.get('/files/:filename', (req, res) => {
+  const filePath = path.join(__dirname, 'uploads', req.params.filename);
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      return res.status(404).json({ message: 'File not found' });
+    }
+    res.sendFile(filePath);
+  });
 });
-
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
 
