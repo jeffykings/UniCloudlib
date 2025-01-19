@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const authRoutes = require('./routes/auth'); // Import the auth routes
+const jwtSecret = process.env.JWT_SECRET;
 
 // Use routes
 app.use('/auth', authRoutes); // All authentication routes will start with '/auth'
