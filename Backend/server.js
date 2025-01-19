@@ -1,4 +1,3 @@
-// server.js
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
@@ -6,9 +5,10 @@ const fs = require('fs');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const helmet = require('helmet'); // Security headers
-const authRoutes = require('./routes/auth'); // Import auth routes
-const File = require('./models/File'); // Import File model
+const helmet = require('helmet'); 
+const jwt = require('jsonwebtoken');  // For token-based authentication
+const authRoutes = require('./routes/auth'); 
+const File = require('./models/File'); 
 
 dotenv.config();
 
@@ -16,8 +16,8 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: 'https://unicloudlib.vercel.app' })); // Restrict CORS
-app.use(helmet()); // Add security headers
+app.use(cors({ origin: 'https://unicloudlib.vercel.app' })); 
+app.use(helmet()); 
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {
@@ -27,7 +27,7 @@ mongoose.connect(process.env.MONGO_URI, {
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => {
     console.error('MongoDB connection error:', err.message);
-    process.exit(1); // Exit process on DB failure
+    process.exit(1); 
   });
 
 // Multer Configuration
@@ -47,7 +47,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({
   storage,
-  limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
+  limits: { fileSize: 5 * 1024 * 1024 }, 
   fileFilter: (req, file, cb) => {
     const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
     if (!allowedTypes.includes(file.mimetype)) {
@@ -57,11 +57,27 @@ const upload = multer({
   },
 });
 
-// Routes
-app.use('/auth', authRoutes); // Auth routes
+// Token Verification Middleware
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization?.split(' ')[1];
+  if (!token) {
+    return res.status(401).json({ message: 'Unauthorized access' });
+  }
 
-// File Upload Route
-app.post('/upload', upload.single('file'), async (req, res) => {
+  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: 'Invalid token' });
+    }
+    req.user = decoded;
+    next();
+  });
+};
+
+// Routes
+app.use('/auth', authRoutes); 
+
+// Protected File Upload Route
+app.post('/upload', verifyToken, upload.single('file'), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: 'No file uploaded' });
   }
@@ -84,8 +100,8 @@ app.post('/upload', upload.single('file'), async (req, res) => {
   }
 });
 
-// File List Route
-app.get('/files', async (req, res) => {
+// Protected File List Route
+app.get('/files', verifyToken, async (req, res) => {
   try {
     const files = await File.find({});
     res.json(files);
@@ -95,8 +111,8 @@ app.get('/files', async (req, res) => {
   }
 });
 
-// File Retrieval Route
-app.get('/files/:filename', (req, res) => {
+// Protected File Retrieval Route
+app.get('/files/:filename', verifyToken, (req, res) => {
   const filePath = path.join(uploadDir, req.params.filename);
   fs.access(filePath, fs.constants.F_OK, (err) => {
     if (err) {
