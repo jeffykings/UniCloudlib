@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const response = await fetch('https://your-api-url/auth/signup', {
+      const response = await fetch('https://uni-cloudlib.vercel.app/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
