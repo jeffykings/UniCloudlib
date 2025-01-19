@@ -9,6 +9,13 @@ const jwtSecret = process.env.JWT_SECRET || 'fallback_secret';
 const jwtExpiry = process.env.JWT_EXPIRY || '1h'; // Configurable expiration time
 const saltRounds = parseInt(process.env.SALT_ROUNDS) || 12; // Configurable bcrypt salt rounds
 
+app.post('/auth/signup', async (req, res) => {
+  try {
+    // Signup logic
+  } catch (error) {
+    res.status(500).json({ message: 'Error message here', error: error.message });
+  }
+});
 // Signup Route
 router.post(
   '/signup',
