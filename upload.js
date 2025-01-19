@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   const uploadForm = document.getElementById('uploadForm');
 
+   const token = localStorage.getItem('authToken');
+  if (!token) {
+    alert('Please log in to access this page.');
+    window.location.href = 'login.html';
+    return;
+  }
+
   uploadForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -40,7 +47,13 @@ document.addEventListener('DOMContentLoaded', () => {
         alert(data.message || 'File uploaded successfully!');
         uploadForm.reset();
       } else {
-        alert(data.message || 'Upload failed.');
+        if (response.status === 401) {
+          alert('Session expired. Please log in again.');
+          localStorage.removeItem('authToken');
+          window.location.href = 'login.html';
+        } else {
+          alert(data.message || 'Upload failed.');
+        }
       }
     } catch (error) {
       alert('An error occurred: ' + error.message);
