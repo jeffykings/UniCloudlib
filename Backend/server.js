@@ -11,6 +11,7 @@ const jwtSecret = process.env.JWT_SECRET;
 const path = require('path');
 const fs = require('fs');
 const fileMetadata = []; // Replace with database logic later
+const File = require('./models/File');
 
 const app = express();
 // Use routes
@@ -34,11 +35,27 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-app.post('/upload', upload.single('file'), (req, res) => {
+app.post('/upload', upload.single('file'), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: 'No file uploaded' });
   }
-  res.status(201).json({ message: 'File uploaded successfully', filename: req.file.filename });
+
+    try {
+    const fileData = new File({
+      title: req.body.title,
+      description: req.body.description,
+      school: req.body.school,
+      department: req.body.department,
+      course: req.body.course,
+      level: req.body.level,
+      filename: req.file.filename,
+    });
+      await fileData.save();
+  res.status(201).json({ message: 'File uploaded successfully', file: fileData });
+    }
+  catch (error) {
+    res.status(500).json({ message: 'Error saving file metadata', error: error.message });
+  }
 });
 
 // MongoDB connection
