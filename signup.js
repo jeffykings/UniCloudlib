@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     try {
-      const response = await fetch('https://uni-cloudlib-6lngnkkj8-jeffykings-projects.vercel.app/', {
+      const response = await fetch('https://uni-cloudlib.vercel.app/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       const data = await response.json();
       if (response.ok) {
-        alert(data.message || 'Signup successful!');
+        alert('Signup successful! You can now log in.');
+        window.location.href = 'login.html';
       } else {
         alert(data.message || 'Signup failed.');
       }
