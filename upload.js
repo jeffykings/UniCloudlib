@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!fileInput.files.length) {
       alert('Please select a file to upload.');
+      window.location.href = 'login.html';
       return;
     }
 
@@ -29,6 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const response = await fetch('https://uni-cloudlib.vercel.app/upload', {
         method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
         body: formData,
       });
       const data = await response.json();
