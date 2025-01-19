@@ -15,7 +15,16 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         body: JSON.stringify({ email, password }),
       });
-      const data = await response.json();
+
+      let data;
+      const contentType = response.headers.get('Content-Type') || '';
+      if (contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        throw new Error(`Unexpected response format: ${text}`);
+      }
+      
       if (response.ok) {
         alert('Login successful!');
         localStorage.setItem('authToken', data.token);
