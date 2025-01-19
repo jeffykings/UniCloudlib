@@ -19,6 +19,25 @@ dotenv.config();
 app.use(express.json());
 app.use(cors());
 
+// Configure Multer for file storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/'); // Directory where files will be saved
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  }
+});
+
+const upload = multer({ storage });
+
+app.post('/upload', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'No file uploaded' });
+  }
+  res.status(201).json({ message: 'File uploaded successfully', filename: req.file.filename });
+});
+
 // MongoDB connection
 mongoose.connect('mongodb+srv://Alx:unicloudlib@cluster0.f3j4s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
