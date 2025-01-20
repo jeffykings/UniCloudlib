@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const signupForm = document.getElementById('signupForm');
+  const errorMessages = document.getElementById('errorMessages'); // Added for error handling
 
   signupForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -24,15 +25,30 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({ name, email, password, position }),
       });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Unexpected response format or server error: ${errorText}`);
+      const contentType = response.headers.get('Content-Type') || '';
+      let data;
+      if (contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        throw new Error(`Unexpected server response: ${text}`);
       }
 
-      const data = await response.json();
-
-      alert('Signup successful! You can now log in.');
-      window.location.href = 'login.html';
+      if (response.ok) {
+        alert('Signup successful! You can now log in.');
+        window.location.href = 'login.html';
+      } else {
+        errorMessages.innerHTML = '';  // Clear previous error messages
+        if (data.errors) {
+          data.errors.forEach(error => {
+            const p = document.createElement('p');
+            p.textContent = `${error.param}: ${error.msg}`;
+            errorMessages.appendChild(p);
+          });
+        } else {
+          alert(data.message || 'Signup failed.');
+        }
+      }
     } catch (error) {
       alert(`An error occurred: ${error.message}`);
     }
