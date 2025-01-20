@@ -16,7 +16,14 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors({ origin: 'https://unicloudlib.vercel.app' })); 
+app.use(cors({
+  origin: 'https://uni-cloudlib-m9d3.vercel.app', // Replace with your frontend URL
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true, // Allow cookies if needed
+}));
+
+app.options('*', cors());
+
 app.use(helmet()); 
 
 // MongoDB Connection
