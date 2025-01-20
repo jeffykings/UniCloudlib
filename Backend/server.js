@@ -15,14 +15,15 @@ dotenv.config();
 const app = express();
 
 // Middleware
+app.options('*', cors());
 app.use(express.json());
 app.use(cors({
   origin: 'https://uni-cloudlib-m9d3.vercel.app', // Replace with your frontend URL
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // Allow cookies if needed
 }));
 
-app.options('*', cors());
+
 
 app.use(helmet()); 
 
