@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   signupForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    
+
     const name = signupForm.querySelector('input[placeholder="Name"]').value;
     const email = signupForm.querySelector('input[placeholder="Email"]').value;
     const password = signupForm.querySelector('input[placeholder="Password"]').value;
@@ -24,23 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({ name, email, password, position }),
       });
 
-      let data;
-      const contentType = response.headers.get('Content-Type') || '';
-      if (contentType.includes('application/json')) {
-        data = await response.json();
-      } else {
-        const text = await response.text();
-        throw new Error(`Unexpected response format: ${text}`);
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Unexpected response format or server error: ${errorText}`);
       }
 
-      if (response.ok) {
-        alert('Signup successful! You can now log in.');
-        window.location.href = 'login.html';
-      } else {
-        alert(data.message || 'Signup failed.');
-      }
+      const data = await response.json();
+
+      alert('Signup successful! You can now log in.');
+      window.location.href = 'login.html';
     } catch (error) {
-      alert('An error occurred: ' + error.message);
+      alert(`An error occurred: ${error.message}`);
     }
   });
 });
