@@ -1,10 +1,11 @@
+const cors = require('cors');
 const express = require('express');
+const app = express();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-const cors = require('cors');
 const helmet = require('helmet'); 
 const jwt = require('jsonwebtoken');  // For token-based authentication
 const authRoutes = require('./routes/auth'); 
@@ -12,17 +13,17 @@ const File = require('./models/File');
 
 dotenv.config();
 
-const app = express();
+
 
 // Middleware
 app.options('*', cors());
-app.use(express.json());
 app.use(cors({
   origin: 'https://uni-cloudlib-m9d3.vercel.app', // Replace with your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true, // Allow cookies if needed
 }));
-
+app.use(express.json());
+app.use('/auth', require('./routes/auth'));
 
 
 app.use(helmet()); 
@@ -131,7 +132,5 @@ app.get('/files/:filename', verifyToken, (req, res) => {
 });
 
 // Server Start
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Server running on port ${port}`));
