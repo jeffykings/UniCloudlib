@@ -16,24 +16,18 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({ email, password }),
       });
 
-      let data;
-      const contentType = response.headers.get('Content-Type') || '';
-      if (contentType.includes('application/json')) {
-        data = await response.json();
-      } else {
-        const text = await response.text();
-        throw new Error(`Unexpected response format: ${text}`);
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Unexpected response format or server error: ${errorText}`);
       }
-      
-      if (response.ok) {
-        alert('Login successful!');
-        localStorage.setItem('authToken', data.token);
-        window.location.href = 'home.html';
-      } else {
-        alert(data.message || 'Login failed.');
-      }
+
+      const data = await response.json();
+
+      alert('Login successful!');
+      localStorage.setItem('authToken', data.token);
+      window.location.href = 'home.html';
     } catch (error) {
-      alert('An error occurred: ' + error.message);
+      alert(`An error occurred: ${error.message}`);
     }
   });
 });
