@@ -2,20 +2,13 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
-const User = require('../models/User'); // Import User model
+const User = require('../models/User');
 
 const router = express.Router();
 const jwtSecret = process.env.JWT_SECRET || 'fallback_secret';
-const jwtExpiry = process.env.JWT_EXPIRY || '1h'; // Configurable expiration time
-const saltRounds = parseInt(process.env.SALT_ROUNDS) || 12; // Configurable bcrypt salt rounds
+const jwtExpiry = process.env.JWT_EXPIRY || '1h';
+const saltRounds = parseInt(process.env.SALT_ROUNDS) || 12;
 
-app.post('/auth/signup', async (req, res) => {
-  try {
-    // Signup logic
-  } catch (error) {
-    res.status(500).json({ message: 'Error message here', error: error.message });
-  }
-});
 // Signup Route
 router.post(
   '/signup',
@@ -30,7 +23,7 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ message: 'Validation failed', errors: errors.array() });
     }
 
     const { name, email, password, position } = req.body;
@@ -48,7 +41,7 @@ router.post(
       res.status(201).json({ message: 'User created successfully' });
     } catch (err) {
       console.error('Error during signup:', err.message);
-      res.status(500).json({ message: 'Internal server error' });
+      res.status(500).json({ message: 'Internal server error', error: err.message });
     }
   }
 );
@@ -63,7 +56,7 @@ router.post(
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ message: 'Validation failed', errors: errors.array() });
     }
 
     const { email, password } = req.body;
@@ -83,7 +76,7 @@ router.post(
       res.status(200).json({ message: 'Login successful', token, user: { id: user._id, email: user.email, name: user.name } });
     } catch (err) {
       console.error('Error during login:', err.message);
-      res.status(500).json({ message: 'Internal server error' });
+      res.status(500).json({ message: 'Internal server error', error: err.message });
     }
   }
 );
