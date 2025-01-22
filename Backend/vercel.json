@@ -6,11 +6,11 @@
 "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "server.js"
+      "dest": "Backend/server.js"
     },
     {
       "src": "/(.*)",
-      "dest": "index.html"
+      "dest": "Frontend/index.html"
     }
   ]
 }
