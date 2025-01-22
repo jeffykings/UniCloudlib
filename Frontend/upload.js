@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const backendURL = 'https://your-backend-url.onrender.com/api/resources';
+    const backendURL = 'https://unicloudlib-production.up.railway.app/api/resources';
     const payload = new FormData();
     payload.append('file', file);
     Object.entries(data).forEach(([key, value]) => payload.append(key, value));
