@@ -5,10 +5,9 @@
   ],
   "routes": [
     {
-      "src": "/api/.*",
-      "headers": {
-        "x-vercel-auth": "none"
+      "src": "/(.*)",
+      "dest": "server.js"
+      "headers":
     }
   ]
 }
-
