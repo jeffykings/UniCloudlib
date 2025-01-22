@@ -10,16 +10,12 @@ const app = express();
 const MONGO_URI = process.env.MONGO_URI;
 const uri = "mongodb+srv://Alx:pxw9BC9rQ74JuDzM@cluster0.f3j4s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-// Use routes
-app.use('/auth', authRoutes); // All authentication routes will start with '/auth'
-
-
-
-
-
 // Middleware
 app.use(express.json());
 app.use(cors());
+
+// Use routes
+app.use('/auth', authRoutes); // All authentication routes will start with '/auth'
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
