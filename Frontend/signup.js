@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const backendURL = 'https://https://unicloudlib-production.up.railway.app/api/auth/signup';
+    const backendURL = 'https://unicloudlib-production.up.railway.app/api/auth/signup';
     const payload = { name, email, password, position };
 
     try {
