@@ -4,7 +4,11 @@
     { "src": "Backend/server.js", "use": "@vercel/node" }
   ],
   "routes": [
-    { "src": "/(.*)", "dest": "Backend/server.js" }
+    {
+      "src": "/api/.*",
+      "headers": {
+        "x-vercel-auth": "none"
+    }
   ]
 }
 
