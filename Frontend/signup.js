@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const backendURL = 'https://unicloudlib-production.up.railway.app//api/auth/signup';
+    const backendURL = 'https://your-backend-url.onrender.com/api/auth/signup';
     const payload = { name, email, password, position };
 
     try {
@@ -29,16 +29,17 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify(payload),
       });
 
+      const data = await response.json(); // Process JSON response
+
       if (!response.ok) {
-        throw new Error(`Signup failed: ${response.statusText}`);
+        alert(data.message || 'Signup failed. Please try again.');
+        return;
       }
       alert('Signup successful! Redirecting to login page...');
-      window.location.href = 'login.html';  // Redirect to login page
+      window.location.replace('login.html');  // Use replace to redirect
     } catch (error) {
       console.error('Error during signup:', error);
       alert('Signup failed. Please try again later.');
     }
   });
-
-  console.log('Signup form validation and connection initialized.');
 });
