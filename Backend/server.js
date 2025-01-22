@@ -38,14 +38,14 @@ const authenticate = (req, res, next) => {
 app.use(authenticate);
 app.use('/api/auth', authRoutes);
 
-// Example Model (adjust as needed)
+// Example Model for resources
 const Resource = mongoose.model('Resource', new mongoose.Schema({
   name: String,
   description: String,
-  type: String
+  type: String,
 }));
 
-// Fetch resources endpoint
+// Fetch all resources
 app.get('/api/resources', async (req, res) => {
   try {
     const resources = await Resource.find();
@@ -55,7 +55,32 @@ app.get('/api/resources', async (req, res) => {
   }
 });
 
-mongoose.connect(MONGO_URI)
+// Fetch resource by ID
+app.get('/api/resources/:id', async (req, res) => {
+  try {
+    const resource = await Resource.findById(req.params.id);
+    if (!resource) {
+      return res.status(404).json({ error: 'Resource not found' });
+    }
+    res.json(resource);
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching resource' });
+  }
+});
+
+// Endpoint for adding a new resource
+app.post('/api/resources', async (req, res) => {
+  const { name, description, type } = req.body;
+  const newResource = new Resource({ name, description, type });
+  try {
+    await newResource.save();
+    res.status(201).json(newResource);
+  } catch (error) {
+    res.status(500).json({ error: 'Error saving resource' });
+  }
+});
+
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => console.error('MongoDB connection error:', err));
 
