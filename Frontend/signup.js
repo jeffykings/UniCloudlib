@@ -46,3 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Signup form not found in the DOM.');
     }
 });
+         console.log('Signup form submitted');
+         console.log('User data:', userData);
+
