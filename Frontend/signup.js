@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const signupForm = document.getElementById('signup-form');
+
+    if (!signupForm) {
+        console.error('Signup form not found in the DOM. Ensure the form has the correct ID.');
+        return; // Stop execution if the form is not found
+    }
+
     const signupUrl = 'https://Unicloudlib-production.up.railway.app/auth/signup'; // Replace with your backend URL
 
     async function signupUser(userData) {
@@ -15,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 alert('Signup successful! Redirecting to login page...');
-                window.location.href = '/login.html'; // Adjust this path based on your file structure
+                window.location.href = '/login.html'; // Adjust the path as needed
             } else {
                 alert(`Signup failed: ${data.message}`);
             }
@@ -25,27 +32,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const signupForm = document.getElementById('signup-form');
-    if (signupForm) {
-        signupForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Prevent default form submission
+    signupForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // Prevent default form submission
 
-            // Collect form input values
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const position = document.getElementById('position').value;
+        // Collect form input values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const position = document.getElementById('position').value;
 
-            // Prepare user data object
-            const userData = { name, email, password, position };
+        // Prepare user data object
+        const userData = { name, email, password, position };
 
-            // Call the signup function
-            signupUser(userData);
-        });
-    } else {
-        console.error('Signup form not found in the DOM.');
-    }
+        // Call signup function
+        signupUser(userData);
+    });
 });
-         console.log('Signup form submitted');
-         console.log('User data:', userData);
-
