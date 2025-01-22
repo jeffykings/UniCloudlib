@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const backendURL = 'https://https://unicloudlib-production.up.railway.app//api/auth/login';
+    const backendURL = 'https://unicloudlib-production.up.railway.app/api/auth/login';
     try {
       const response = await fetch(backendURL, {
         method: 'POST',
