@@ -6,7 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 const cors = require('cors');
 const jwt = require('jsonwebtoken'); // Import JWT for authentication
-const authRoutes = require('./routes/auth'); // Import the auth routes
+const authRoutes = require('./api/auth'); // Import the auth routes
 
 const app = express();
 const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://Alx:pxw9BC9rQ74JuDzM@cluster0.f3j4s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
@@ -17,7 +17,7 @@ app.use(cors());
 
 // Authentication Middleware
 const authenticate = (req, res, next) => {
-  if (req.path === '/' || req.path.startsWith('/auth')) {
+  if (req.path === '/' || req.path.startsWith('/api/auth')) {
     // Allow unauthenticated access to public routes
     return next();
   }
@@ -39,7 +39,7 @@ const authenticate = (req, res, next) => {
 app.use(authenticate);
 
 // Use routes
-app.use('/auth', authRoutes); // All authentication routes will start with '/auth'
+app.use('/api/auth', authRoutes); // All authentication routes will start with '/auth'
 
 // MongoDB connection
 mongoose.connect(MONGO_URI)
