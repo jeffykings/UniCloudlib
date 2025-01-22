@@ -1,7 +1,9 @@
+// login.js
+
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('loginForm');
 
-  loginForm.addEventListener('submit', event => {
+  loginForm.addEventListener('submit', async event => {
     event.preventDefault();
 
     const email = loginForm.querySelector('input[type="email"]').value;
@@ -12,8 +14,26 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    console.log(`Login attempt with email: ${email}`);
-    alert('Login successful!');  // Replace this with actual authentication logic
+    const backendURL = 'https://your-backend-url.onrender.com/api/auth/login';
+    try {
+      const response = await fetch(backendURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Login failed: ${response.statusText}`);
+      }
+      const result = await response.json();
+      alert('Login successful! Welcome, ' + result.user.name);
+      // Redirect or further actions here
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('Login failed. Please check your credentials and try again.');
+    }
   });
 
   console.log('Login form script initialized.');
