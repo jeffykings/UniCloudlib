@@ -1,5 +1,42 @@
 // signup.js
 
+const signupUrl = 'https://Unicloudlib-production.up.railway.app/auth/signup';
+async function signupUser(userData) {
+    try {
+        const response = await fetch(signupUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(userData),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            alert('Signup successful! Redirecting to login page...');
+            // Redirect to the login page
+            window.location.href = '/login.html'; // Adjust this path based on your frontend file structure
+        } else {
+            alert(`Signup failed: ${data.message}`);
+        }
+    } catch (error) {
+        console.error('Error during signup:', error);
+        alert('An error occurred. Please try again.');
+    }
+}
+
+// Attach event listener to the signup form
+document.getElementById('signup-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const position = document.getElementById('position').value;
+
+    const userData = { name, email, password, position };
+    signupUser(userData);
+});
 document.addEventListener('DOMContentLoaded', () => {
   const signupForm = document.getElementById('signupForm');
 
