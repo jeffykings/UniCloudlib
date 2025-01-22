@@ -1,22 +1,38 @@
+// resources.js
+
 document.addEventListener('DOMContentLoaded', () => {
-  const filters = document.querySelectorAll('.filter-form select, .filter-form input');
-  const resourceItems = document.querySelectorAll('.resource-item');
+  const resourceList = document.querySelector('#resource-list');
 
-  filters.forEach(filter => {
-    filter.addEventListener('change', () => {
-      const filterValues = Array.from(filters).reduce((acc, filter) => {
-        acc[filter.id] = filter.value.toLowerCase();
-        return acc;
-      }, {});
+  // Function to fetch resources from the backend
+  const fetchResources = async () => {
+    try {
+      const response = await fetch('https://your-backend-url.onrender.com/api/resources');
+      if (!response.ok) {
+        throw new Error(`Failed to fetch resources: ${response.statusText}`);
+      }
+      const resources = await response.json();
+      displayResources(resources);
+    } catch (error) {
+      console.error('Error fetching resources:', error);
+      alert('Could not load resources. Please try again later.');
+    }
+  };
 
-      resourceItems.forEach(item => {
-        const matchesAll = Object.entries(filterValues).every(([key, value]) => {
-          return value === '' || item.innerHTML.toLowerCase().includes(value);
-        });
-        item.style.display = matchesAll ? '' : 'none';
-      });
+  // Function to display resources on the page
+  const displayResources = (resources) => {
+    resourceList.innerHTML = '';
+    resources.forEach(resource => {
+      const resourceItem = document.createElement('div');
+      resourceItem.className = 'resource-item';
+      resourceItem.innerHTML = `
+        <h3>${resource.name}</h3>
+        <p>${resource.description}</p>
+        <span>Type: ${resource.type}</span>
+      `;
+      resourceList.appendChild(resourceItem);
     });
-  });
+  };
 
-  console.log('Resources page filters applied successfully.');
+  // Initial fetch of resources
+  fetchResources();
 });
