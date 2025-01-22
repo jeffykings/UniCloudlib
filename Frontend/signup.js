@@ -1,20 +1,43 @@
+// signup.js
+
 document.addEventListener('DOMContentLoaded', () => {
   const signupForm = document.getElementById('signupForm');
 
-  signupForm.addEventListener('submit', event => {
+  signupForm.addEventListener('submit', async event => {
     event.preventDefault();
-    
-    const email = signupForm.querySelector('input[type="email"]').value;
-    const password = signupForm.querySelector('input[type="password"]').value;
+
+    const name = signupForm.querySelector('input[placeholder="Name"]').value;
+    const email = signupForm.querySelector('input[placeholder="Email"]').value;
+    const password = signupForm.querySelector('input[placeholder="Password"]').value;
     const confirmPassword = signupForm.querySelector('input[placeholder="Confirm Password"]').value;
+    const position = signupForm.querySelector('#position').value;
 
     if (password !== confirmPassword) {
       alert('Passwords do not match!');
       return;
     }
-    console.log(`Signup successful for email: ${email}`);
-    alert('Signup successful!'); 
+
+    const backendURL = 'https://your-backend-url.onrender.com/api/auth/signup';
+    const payload = { name, email, password, position };
+
+    try {
+      const response = await fetch(backendURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Signup failed: ${response.statusText}`);
+      }
+      alert('Signup successful!');
+    } catch (error) {
+      console.error('Error during signup:', error);
+      alert('Signup failed. Please try again later.');
+    }
   });
 
-  console.log('Signup form validation active.');
+  console.log('Signup form validation and connection initialized.');
 });
