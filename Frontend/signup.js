@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM fully loaded');
 
-    const signup-form = document.getElementById('signup-form');
+    const signupForm = document.getElementById('signup-form'); // Correct the variable name
 
-    if (!signup-form) {
+    if (!signupForm) {
         console.error('signup-form not found in the DOM.');
         return; // Stop execution if the form is not found
     }
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Signup successful! Redirecting to login page...');
                 window.location.href = '/login.html'; // Adjust the path as needed
             } else {
-                alert(`Signup failed: ${data.message}`);
+                alert(`Signup failed: ${data.message}`); // Corrected the string template
             }
         } catch (error) {
             console.error('Error during signup:', error);
