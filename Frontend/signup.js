@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM fully loaded');
 
-    const signupForm = document.getElementById('signupForm');
+    const signup-form = document.getElementById('signup-form');
 
-    if (!signupForm) {
-        console.error('signupForm not found in the DOM.');
+    if (!signup-form) {
+        console.error('signup-form not found in the DOM.');
         return; // Stop execution if the form is not found
     }
 
-    console.log('signupForm found!'); // Add this to confirm the form is found
+    console.log('signup-form found!'); // Add this to confirm the form is found
 
     const signupUrl = 'https://Unicloudlib-production.up.railway.app/auth/signup'; // Update with your backend URL
 
