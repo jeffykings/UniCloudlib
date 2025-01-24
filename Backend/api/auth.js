@@ -10,15 +10,26 @@ if (!process.env.JWT_SECRET) {
   throw new Error('Missing JWT_SECRET environment variable. Please set it in your .env file.');
 }
 
+// Helper function for error responses
+const errorResponse = (res, message, code = 400) => res.status(code).json({ message });
+
 // Signup Route
 router.post('/signup', async (req, res) => {
   const { name, email, password, position } = req.body;
+
+  // Basic validation
+  if (!name || !email || !password || !position) {
+    return errorResponse(res, 'All fields are required');
+  }
+  if (password.length < 6) {
+    return errorResponse(res, 'Password must be at least 6 characters long');
+  }
 
   try {
     // Check if user already exists
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({ message: 'User already exists' });
+      return errorResponse(res, 'User already exists');
     }
 
     // Hash the password
@@ -45,17 +56,22 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
+  // Basic validation
+  if (!email || !password) {
+    return errorResponse(res, 'Email and password are required');
+  }
+
   try {
     // Check if user exists
-    const user = await User.findOne({ email }).select('+password');
+    const user = await User.findOne({ email }).select('+password'); // Ensure password is explicitly selected
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return errorResponse(res, 'User not found', 404);
     }
 
     // Validate password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid credentials' });
+      return errorResponse(res, 'Invalid credentials', 401);
     }
 
     // Generate a token
