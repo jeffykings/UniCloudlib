@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 console.log('Signup successful:', data);
                 alert('Signup successful! Redirecting to login page...');
-                window.location.href = '/Frontend/login.html'; // Adjust the path as needed
+                window.location.href = './login.html'; // Adjust the path as needed
             } else {
                 console.warn('Signup failed:', data);
                 alert(`Signup failed: ${data.message || 'Unexpected error occurred.'}`);
