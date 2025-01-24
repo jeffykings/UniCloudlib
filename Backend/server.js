@@ -16,15 +16,15 @@ app.use(cors());
 
 // Authentication Middleware
 const authenticate = (req, res, next) => {
-  // List of public paths that don't require token validation
-  const publicPaths = ['/', '/api/auth/signup', '/api/auth/login', '/api/resources'];
-
-  // Allow public routes without requiring a token
-  if (publicPaths.includes(req.path) || req.path.startsWith('/api/resources')) {
-    return next();
+  // Check if the route is protected
+  if (
+    req.path === '/' || 
+    req.path === '/api/auth/signup' || 
+    req.path === '/api/auth/login'
+  ) {
+    return next(); // Skip authentication for public routes
   }
 
-  // Validate Authorization Header for protected routes
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ message: 'Unauthorized: Token missing or invalid' });
@@ -40,11 +40,11 @@ const authenticate = (req, res, next) => {
   });
 };
 
-// Use the authentication middleware
-app.use(authenticate);
-
-// Auth routes
+// Public Routes
 app.use('/api/auth', authRoutes);
+
+// Protected Routes
+app.use(authenticate);
 
 // Example Model for resources
 const Resource = mongoose.model(
@@ -56,7 +56,7 @@ const Resource = mongoose.model(
   })
 );
 
-// Fetch all resources (public route)
+// Public route for fetching all resources
 app.get('/api/resources', async (req, res) => {
   try {
     const resources = await Resource.find();
@@ -67,7 +67,7 @@ app.get('/api/resources', async (req, res) => {
   }
 });
 
-// Fetch resource by ID (protected route)
+// Protected route for fetching resource by ID
 app.get('/api/resources/:id', authenticate, async (req, res) => {
   try {
     const resource = await Resource.findById(req.params.id);
@@ -81,7 +81,7 @@ app.get('/api/resources/:id', authenticate, async (req, res) => {
   }
 });
 
-// Add a new resource (protected route)
+// Protected route for adding a new resource
 app.post('/api/resources', authenticate, async (req, res) => {
   const { name, description, type } = req.body;
   if (!name || !description || !type) {
@@ -109,7 +109,7 @@ app.get('/', (req, res) => {
   res.send('UniCloudlib backend is running');
 });
 
-// Server setup
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
