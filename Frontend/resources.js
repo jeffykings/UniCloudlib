@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to fetch resources from the backend
   const fetchResources = async () => {
     try {
-      const response = await fetch('https://your-backend-url.onrender.com/api/resources');
+      const response = await fetch('https://unicloudlib-production.up.railway.app/api/resources');
       if (!response.ok) {
         throw new Error(`Failed to fetch resources: ${response.statusText}`);
       }
