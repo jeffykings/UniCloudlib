@@ -1,40 +1,65 @@
-// login.js
-
 document.addEventListener('DOMContentLoaded', () => {
-  const loginForm = document.getElementById('loginForm');
+    console.log('DOM fully loaded and parsed.');
 
-  loginForm.addEventListener('submit', async event => {
-    event.preventDefault();
+    const loginForm = document.getElementById('login-form');
 
-    const email = loginForm.querySelector('input[type="email"]').value;
-    const password = loginForm.querySelector('input[type="password"]').value;
-
-    if (!email || !password) {
-      alert('Please fill in both email and password fields.');
-      return;
+    if (!loginForm) {
+        console.error('Error: login-form not found in the DOM.');
+        return;
     }
 
-    const backendURL = 'https://unicloudlib-production.up.railway.app/api/auth/login';
-    try {
-      const response = await fetch(backendURL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+    console.log('login-form found and ready to use.');
 
-      if (!response.ok) {
-        throw new Error(`Login failed: ${response.statusText}`);
-      }
-      const result = await response.json();
-      alert('Login successful! Welcome, ' + result.user.name);
-      // Redirect or further actions here
-    } catch (error) {
-      console.error('Error during login:', error);
-      alert('Login failed. Please check your credentials and try again.');
+    const loginUrl = 'https://Unicloudlib-production.up.railway.app/api/auth/login';
+
+    async function loginUser(userData) {
+        try {
+            console.log('Sending login request to backend...');
+
+            const response = await fetch(loginUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log('Login successful:', data);
+
+                // Save token or user info to local storage or cookies
+                if (data.token) {
+                    localStorage.setItem('token', data.token); // Save the token for future use
+                }
+
+                alert('Login successful! Redirecting to home page...');
+                window.location.href = '/Frontend/home.html'; // Redirect to home.html
+            } else {
+                console.warn('Login failed:', data);
+                alert(`Login failed: ${data.message || 'Please check your credentials and try again.'}`);
+            }
+        } catch (error) {
+            console.error('Error during login process:', error);
+            alert('An error occurred while logging in. Please try again later.');
+        }
     }
-  });
 
-  console.log('Login form script initialized.');
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        if (!email || !password) {
+            alert('Please fill in all fields before submitting.');
+            return;
+        }
+
+        const userData = { email, password };
+        console.log('Collected login data:', userData);
+
+        loginUser(userData);
+    });
 });
