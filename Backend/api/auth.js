@@ -58,35 +58,35 @@ router.post('/login', async (req, res) => {
 
   // Basic validation
   if (!email || !password) {
-    return errorResponse(res, 'Email and password are required');
+    return res.status(400).json({ message: 'Email and password are required' });
   }
 
   try {
-    // Check if user exists
-    const user = await User.findOne({ email }).select('+password'); // Ensure password is explicitly selected
+    // Check if the user exists and explicitly select the password field
+    const user = await User.findOne({ email }).select('+password');
     if (!user) {
-      return errorResponse(res, 'User not found', 404);
+      return res.status(404).json({ message: 'User not found' });
     }
 
-    // Validate password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    // Validate the password using the comparePassword method
+    const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
-      return errorResponse(res, 'Invalid credentials', 401);
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
-    // Generate a token
+    // Generate a JWT
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
-    return res.status(200).json({ 
-      message: 'Login successful', 
-      token, 
-      user: { name: user.name, email: user.email, position: user.position }
+    return res.status(200).json({
+      message: 'Login successful',
+      token,
+      user: { name: user.name, email: user.email, position: user.position },
     });
   } catch (err) {
     console.error('Login Error:', err.message);
-    return res.status(500).json({ 
-      message: 'Something went wrong during login', 
-      error: err.message 
+    return res.status(500).json({
+      message: 'Something went wrong during login',
+      error: err.message,
     });
   }
 });
