@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('signup-form found and ready to use.');
 
     // Backend signup endpoint URL
-    const signupUrl = 'https://Unicloudlib-production.up.railway.app/auth/signup';
+    const signupUrl = 'https://Unicloudlib-production.up.railway.app/api/auth/signup';
 
     // Function to handle user signup
     async function signupUser(userData) {
