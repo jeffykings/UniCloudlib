@@ -16,19 +16,20 @@ app.use(cors());
 
 // Authentication Middleware
 const authenticate = (req, res, next) => {
+  // List of public paths that don't require token validation
+  const publicPaths = ['/', '/api/auth/signup', '/api/auth/login', '/api/resources'];
+
   // Allow public routes without requiring a token
-  if (
-    req.path === '/' ||
-    req.path.startsWith('/api/auth') || 
-    req.path === '/api/resources' // Allow public access to resources for this example
-  ) {
+  if (publicPaths.includes(req.path) || req.path.startsWith('/api/resources')) {
     return next();
   }
 
+  // Validate Authorization Header for protected routes
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ message: 'Unauthorized: Token missing or invalid' });
   }
+
   const token = authHeader.split(' ')[1];
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
@@ -67,7 +68,7 @@ app.get('/api/resources', async (req, res) => {
 });
 
 // Fetch resource by ID (protected route)
-app.get('/api/resources/:id', async (req, res) => {
+app.get('/api/resources/:id', authenticate, async (req, res) => {
   try {
     const resource = await Resource.findById(req.params.id);
     if (!resource) {
@@ -81,7 +82,7 @@ app.get('/api/resources/:id', async (req, res) => {
 });
 
 // Add a new resource (protected route)
-app.post('/api/resources', async (req, res) => {
+app.post('/api/resources', authenticate, async (req, res) => {
   const { name, description, type } = req.body;
   if (!name || !description || !type) {
     return res.status(400).json({ message: 'All fields are required' });
