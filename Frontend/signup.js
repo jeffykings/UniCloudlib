@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (response.ok) {
                 alert('Signup successful! Redirecting to login page...');
-                window.location.href = '/login.html'; // Adjust the path as needed
+                window.location.href = '/Frontend/login.html'; // Adjust the path as needed
             } else {
                 alert(`Signup failed: ${data.message}`); // Corrected the string template
             }
