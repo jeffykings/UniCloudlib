@@ -1,6 +1,6 @@
 🎓 UniCloudlib – Your Gateway to Academic Excellence
 
-UniCloudlib is more than just a file-sharing platform—it's a hub for academic empowerment! Designed with university students in mind, Chidinma Ukachi and Amuh Emeka Francis (JK7) bring you a seamless way to share, explore, and access academic resources like never before.
+UniCloudlib is more than just a file-sharing platform—it's a hub for academic empowerment! Designed with university students in mind, Chidinma Ukachi (chidinmaukachi20@gmail.com) and Amuh Emeka Francis (jeffykings@gmail.com)(JK7) bring you a seamless way to share, explore, and access academic resources like never before.
 
 🚀 Ready to transform your learning experience? Let’s dive in!
 
