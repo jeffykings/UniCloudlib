@@ -14,10 +14,12 @@
     </header>
     <main>
         <div class="form-container">
+            <!-- Ensure form ID matches JS -->
             <form id="loginForm" class="active">
                 <h2>Login</h2>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
+                <!-- Added IDs to inputs for JS -->
+                <input type="email" id="email" placeholder="Email" required />
+                <input type="password" id="password" placeholder="Password" required />
                 <button type="submit">Login</button>
                 <a href="forgot-password.html">Forgot Password?</a>
                 <div class="social-login">
@@ -28,7 +30,7 @@
                 </div>
                 <div class="signup-link">
                     <p>Don't have an account? <a href="signup.html">Signup here</a></p>
-		    <a href="home.html">By pass login</a>
+                    <a href="home.html">Bypass login</a>
                 </div>
             </form>
         </div>
