@@ -1,14 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM fully loaded and parsed.');
 
-    const loginForm = document.getElementById('login-form');
+    const loginForm = document.getElementById('loginForm'); // Updated to match HTML ID
 
     if (!loginForm) {
-        console.error('Error: login-form not found in the DOM.');
+        console.error('Error: loginForm not found in the DOM.');
         return;
     }
 
-    console.log('login-form found and ready to use.');
+    console.log('loginForm found and ready to use.');
 
     const loginUrl = 'https://Unicloudlib-production.up.railway.app/api/auth/login';
 
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
 
                 alert('Login successful! Redirecting to home page...');
-                window.location.href = '/Frontend/home.html'; // Redirect to home.html
+                window.location.href = './home.html'; // Adjusted path based on project structure
             } else {
                 console.warn('Login failed:', data);
                 alert(`Login failed: ${data.message || 'Please check your credentials and try again.'}`);
