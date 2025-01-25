@@ -1,8 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM fully loaded and parsed.');
 
-    const loginForm = document.getElementById('loginForm'); // Updated to match HTML ID
-
+    const loginForm = document.getElementById('loginForm');
     if (!loginForm) {
         console.error('Error: loginForm not found in the DOM.');
         return;
@@ -14,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loginUser(userData) {
         try {
-            console.log('Sending login request to backend...');
+            console.log('Sending login request to backend with data:', userData);
 
             const response = await fetch(loginUrl, {
                 method: 'POST',
@@ -24,20 +23,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(userData),
             });
 
-            const data = await response.json();
+            let data;
+            try {
+                data = await response.json();
+            } catch (parseError) {
+                console.error('Failed to parse response as JSON:', parseError);
+                throw new Error('Invalid response from server');
+            }
 
             if (response.ok) {
                 console.log('Login successful:', data);
 
                 // Save token or user info to local storage or cookies
                 if (data.token) {
-                    localStorage.setItem('token', data.token); // Save the token for future use
+                    localStorage.setItem('token', data.token);
+                } else {
+                    console.warn('No token received in the response.');
                 }
 
                 alert('Login successful! Redirecting to home page...');
-                window.location.href = './home.html'; // Adjusted path based on project structure
+                window.location.href = './home.html'; // Adjust the redirect path based on your project
             } else {
-                console.warn('Login failed:', data);
+                console.warn('Login failed with response:', data);
                 alert(`Login failed: ${data.message || 'Please check your credentials and try again.'}`);
             }
         } catch (error) {
@@ -49,8 +56,17 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+
+        if (!emailInput || !passwordInput) {
+            console.error('Error: Input elements not found in the DOM.');
+            alert('An error occurred. Please try again later.');
+            return;
+        }
+
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
 
         if (!email || !password) {
             alert('Please fill in all fields before submitting.');
