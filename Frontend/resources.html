@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniCloudlib - Resources</title>
+    <link rel="icon" href="apple-touch-icon.png" type="image/png">
+    <link rel="stylesheet" href="resources.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><img src="logo.png" alt="logo" /></div>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="upload.html">Upload</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="index.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Resources</h1>
+        <form class="filter-form">
+            <input type="text" id="searchBox" placeholder="Search resources...">
+            <select id="school" required>
+                <option value="">Filter by School/University</option>
+                <option value="university-a">University A</option>
+                <option value="university-b">University B</option>
+            </select>
+            <select id="department" required>
+                <option value="">Filter by Department</option>
+                <option value="computer-science">Computer Science</option>
+                <option value="engineering">Engineering</option>
+            </select>
+            <select id="course" required>
+                <option value="">Filter by Course</option>
+                <option value="web-development">Web Development</option>
+                <option value="cybersecurity">Cybersecurity</option>
+            </select>
+            <select id="level" required>
+                <option value="">Filter by Level</option>
+                <option value="100">100</option>
+                <option value="200">200</option>
+                <option value="300">300</option>
+                <option value="400">400</option>
+                <option value="500">500</option>
+                <option value="600">600</option>
+            </select>
+            <select id="position" required>
+                <option value="">Filter by Position</option>
+                <option value="student">Student</option>
+                <option value="lecturer">Lecturer</option>
+            </select>
+        </form>
+        <div class="resource-grid">
+            <div class="resource-item" data-school="university-a" data-department="computer-science" data-course="web-development" data-level="400" data-position="student">
+                <h2>Resource Title</h2>
+                <p>Brief description of the resource.</p>
+                <p>Uploaded by: <em>Uploader's Name</em></p>
+                <a href="#" class="btn">Download</a>
+            </div>
+            <div class="resource-item" data-school="university-b" data-department="engineering" data-course="cybersecurity" data-level="300" data-position="lecturer">
+                <h2>Another Resource</h2>
+                <p>Another brief description.</p>
+                <p>Uploaded by: <em>Another Name</em></p>
+                <a href="#" class="btn">Download</a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 UniCloudlib. All rights reserved.</p>
+        <ul>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+        </ul>
+    </footer>
+    <script src="resources.js"></script>
+</body>
+</html>

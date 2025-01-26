@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UniCloudlib - File Upload</title>
+    <link rel="icon" href="apple-touch-icon.png" type="image/png">
+    <link rel="stylesheet" href="upload.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><img src="logo.png" alt="logo" /></div>
+            <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="upload.html">Upload</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="index.html">logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Upload a File</h1>
+        <form id="uploadForm">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" id="title" placeholder="Title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" placeholder="Description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="school">School/University</label>
+                <input type="text" id="school" placeholder="School/University" required>
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" id="department" placeholder="Department" required>
+            </div>
+            <div class="form-group">
+                <label for="course">Course Name</label>
+                <input type="text" id="course" placeholder="Course Name" required>
+            </div>
+            <div class="form-group">
+                <label for="level">Level</label>
+                <input type="text" id="level" placeholder="Your Level" required>
+            </div>
+            <div class="form-group">
+                <label for="file">Upload File</label>
+                <input type="file" id="file" required>
+            </div>
+            <button type="submit">Upload</button>
+        </form>
+    </main>
+    <footer>
+        <p>&copy; 2024 UniCloudlib. All rights reserved.</p>
+        <ul>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+        </ul>
+    </footer>
+    <script src="upload.js"></script>
+</body>
+</html>
